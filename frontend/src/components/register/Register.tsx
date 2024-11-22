@@ -18,7 +18,7 @@ const LoginForm: React.FC = () => {
     setError(null);
     
     try {
-      const response = await axios.post<LoginResponse>('http://localhost:5000/api/users/register', { username, password });
+      const response = await axios.post<LoginResponse>('https://soutezweb.onrender.com/api/users/register', { username, password });
       console.log('Login success:', response.data.message);
       // Store the token (localStorage or context)
       localStorage.setItem('token', response.data.token);
