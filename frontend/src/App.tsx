@@ -4,7 +4,6 @@ import Navbar from './components/navbar/Navbar';
 import MainPage from './pages/MainPage/MainPage';
 import About from './pages/About/About';
 import Work from './pages/Work/Work';
-import News from './pages/News/News';
 import Login from './pages/Login/Login';
 import Footer from './components/footer/Footer';
 function App() {
