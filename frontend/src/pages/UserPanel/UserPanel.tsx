@@ -2,11 +2,7 @@
 const UserPanel = () => {
   return (
     <div>
-      <h1>USER PANEL</h1>
-      <h1>USER PANEL</h1>
-      <h1>USER PANEL</h1>
-      <h1>USER PANEL</h1>
-      <h1>USER PANEL</h1>
+      <h1>Jsi přihlášen</h1>
     </div>
   ) 
 }
