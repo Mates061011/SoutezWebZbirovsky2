@@ -1,5 +1,5 @@
 // src/components/Navigation/Navigation.tsx
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 import Logo from "../../assets/logo.svg";
