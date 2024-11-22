@@ -1,32 +1,20 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import bcrypt from 'bcryptjs';
+import mongoose, { Document, Schema, Types } from 'mongoose';
 
-interface IUser extends Document {
+interface IUser {
   username: string;
   password: string;
 }
 
-const userSchema: Schema<IUser> = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+// Explicitly define the type of _id as ObjectId
+interface IUserDocument extends IUser, Document {
+  _id: Types.ObjectId; // MongoDB's ObjectId
+}
+
+const UserSchema = new Schema<IUserDocument>({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
 });
 
-// Hash password before saving to MongoDB
-userSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  }
-  next();
-});
-
-const User = mongoose.model<IUser>('User', userSchema);
+const User = mongoose.model<IUserDocument>('User', UserSchema);
 
 export default User;

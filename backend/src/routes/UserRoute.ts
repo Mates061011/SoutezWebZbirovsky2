@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
-import bcrypt from 'bcryptjs';
+import argon2 from 'argon2'; // Importing argon2
 import jwt from 'jsonwebtoken';
-import User from '../models/user'; // Adjust the path to your User model
+import User from '../models/user'; // Adjust path to your User model
 
 const router = express.Router();
 
@@ -17,9 +17,8 @@ const registerHandler = async (req: Request, res: Response, next: NextFunction):
       return;
     }
 
-    // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // Hash the password using argon2
+    const hashedPassword = await argon2.hash(password);
 
     // Create a new user
     const newUser = new User({
@@ -32,7 +31,7 @@ const registerHandler = async (req: Request, res: Response, next: NextFunction):
 
     // Create a JWT token for the newly registered user
     const token = jwt.sign(
-      { userId: newUser._id, username: newUser.username },
+      { userId: newUser._id.toString(), username: newUser.username },
       process.env.JWT_SECRET || 'your-secret-key', // Replace with your secret key
       { expiresIn: '1h' }
     );
@@ -45,7 +44,7 @@ const registerHandler = async (req: Request, res: Response, next: NextFunction):
   }
 };
 
-// Login handler (same as before)
+// Login handler
 const loginHandler = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { username, password } = req.body;
 
@@ -54,21 +53,21 @@ const loginHandler = async (req: Request, res: Response, next: NextFunction): Pr
     const user = await User.findOne({ username });
 
     if (!user) {
-      res.status(400).json({ message: 'Invalid username or password' });
+      res.status(400).json({ message: 'Invalid username' });
       return;
     }
 
-    // Compare the password with the hashed password stored in the database
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    // Compare the password with the hashed password stored in the database using argon2
+    const isPasswordValid = await argon2.verify(user.password, password);
 
     if (!isPasswordValid) {
-      res.status(400).json({ message: 'Invalid username or password' });
+      res.status(400).json({ message: 'Invalid password' });
       return;
     }
 
-    // Create a JWT token
+    // Create a JWT token if password is valid
     const token = jwt.sign(
-      { userId: user._id, username: user.username },
+      { userId: user._id.toString(), username: user.username },
       process.env.JWT_SECRET || 'your-secret-key', // Replace with your secret key
       { expiresIn: '1h' }
     );

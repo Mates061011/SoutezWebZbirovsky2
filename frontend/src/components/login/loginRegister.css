@@ -1,0 +1,47 @@
+/* General Styles for Forms */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+
+  }
+  
+  
+  .toggle-btn {
+    margin-top: 15px;
+    background: none;
+    color: #007BFF;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .toggle-btn:hover {
+    color: #0056b3;
+  }
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  border-radius: 20px;
+  height:250px;
+  gap: 20px;
+  input {
+    width: 90%;
+    height: 50px;
+    padding-left: 20px;
+    border: none;
+    background-color: white;
+    border-radius: 10px;
+  }
+  button {
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+}
