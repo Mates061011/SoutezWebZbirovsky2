@@ -1,9 +1,9 @@
 // src/pages/Login/Login.tsx
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext'; // Import AuthContext
 import './loginRegister.css';
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,12 +16,23 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://soutezweb.onrender.com/api/users/login', {
-        username,
-        password,
+      const response = await fetch('https://soutezweb.onrender.com/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
       });
 
-      const token = response.data.token;
+      if (!response.ok) {
+        throw new Error('Login failed');
+      }
+
+      const data = await response.json();
+      const token = data.token;
       localStorage.setItem('token', token);
 
       // If AuthContext is available (not null), update the user
@@ -33,7 +44,7 @@ const Login = () => {
         });
       }
 
-      navigate('/Work'); // Redirect on successful login
+      navigate('/UserPanel'); // Redirect on successful login
     } catch (error) {
       console.error('Login failed', error);
     }
