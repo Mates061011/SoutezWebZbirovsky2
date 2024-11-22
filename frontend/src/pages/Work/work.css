@@ -1,0 +1,31 @@
+.workCont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 50vh;
+    align-items: center;
+
+}
+.workTimeFull {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: fit-content;
+    .timePart {
+        width: 120px;
+        background: rgba(111, 111, 111, 0.297);
+        box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(13.4px);
+        padding: 20px;
+        border-radius: 20px;
+        div {
+            font-size: 100px;
+            line-height: 0.9;
+            text-align: center;
+            color: #2AA1FF;
+        }
+        p{
+            text-align: center;
+        }
+    }
+}
