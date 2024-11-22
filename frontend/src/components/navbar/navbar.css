@@ -31,6 +31,9 @@ nav {
         }
     }
 }
+.logoutButton {
+    width: 80px;
+}
 .navbar {
     box-shadow: 0 0px 50px #2aa3ff43;
     border: 3px solid #2aa3ff56;

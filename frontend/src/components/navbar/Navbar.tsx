@@ -34,13 +34,14 @@ const Navigation = () => {
           ) : (
             <Link to="/Login">BETA Testing</Link> // Show "Login" link if not logged in
           )}
+          {/* Render logout button if the user is logged in */}
+          {authContext?.user && (
+            <button onClick={handleLogout} className="logoutButton">
+              Logout
+            </button>
+          )}
         </div>
-        {/* Render logout button if the user is logged in */}
-        {authContext?.user && (
-          <button onClick={handleLogout} className="logoutButton">
-            Logout
-          </button>
-        )}
+        
       </div>
     </nav>
   );
