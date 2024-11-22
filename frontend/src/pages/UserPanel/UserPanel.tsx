@@ -4,7 +4,7 @@ const UserPanel = () => {
     <div>
       <h1>USER PANEL</h1>
     </div>
-  )
+  ) 
 }
 
 export default UserPanel
